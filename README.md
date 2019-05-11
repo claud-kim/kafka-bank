@@ -2,6 +2,16 @@
 # This bank log 시뮬레이션 프로그램
 
 
+
+## 빌드 방법
+```bash
+# clean & test & package .
+mvn clean package
+
+
+```
+
+
 ## 실행 방법 : 터미널 두 개 필요
 ```bash
 
