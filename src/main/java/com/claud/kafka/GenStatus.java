@@ -1,45 +1,67 @@
 package com.claud.kafka;
 
-import com.claud.kafka.producer.vo.ActionType;
-import com.claud.kafka.producer.vo.BaseVo;
-import com.claud.kafka.producer.vo.LogType;
-import com.claud.kafka.producer.vo.SessionLog;
-
-import javax.management.RuntimeOperationsException;
-import javax.swing.*;
+import com.claud.kafka.producer.vo.gen.GenAccountInfo;
+import com.claud.kafka.producer.vo.send.UserBankEvent;
+import com.google.gson.Gson;
 
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.claud.kafka.producer.vo.LogType.JOIN_LOG;
-import static com.claud.kafka.producer.vo.LogType.SESSION_LOG;
+public final class GenStatus {
 
-public class GenStatus {
+    private Map<Integer, GenAccountInfo> customerActionStatus;
+    private int userTotalSize;
 
-    private Map<Integer, ActionType> customerActionStatus;
-    private Random rand = new Random(System.currentTimeMillis());
 
-    public GenStatus(int sizeCustomer, long seed){
-        customerActionStatus = new ConcurrentHashMap<Integer, ActionType>(sizeCustomer);
+    private static class SingletonHolder {
+        static final GenStatus INSTANCE = new GenStatus();
+    }
+
+    private GenStatus() {
+    }
+
+    public static GenStatus getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+
+    public void init(final int userTotalSize) {
+        this.userTotalSize = userTotalSize;
+        this.customerActionStatus = new ConcurrentHashMap<>(userTotalSize);
+    }
+    
+    public int getUserTotalSize() {
+        return this.userTotalSize;
+    }
+
+    public Set<Integer> registerUser() {
+        return this.customerActionStatus.keySet();
+    }
+
+    public GenAccountInfo getGenAccountInfo(Integer userNumber) {
+        return this.customerActionStatus.get(userNumber);
+    }
+
+    public void putCustomActionStatus(Integer userNumber, GenAccountInfo genAccountInfo) {
+        this.customerActionStatus.put(userNumber, genAccountInfo);
     }
 
 
+    public String printSummary() {
+        StringBuffer buffer = new StringBuffer();
 
-    public static ActionType tranferNextStatus(ActionType previousAction) throws RuntimeException {
-
-        switch(previousAction) {
-            case SESSION_NULL:
-                return ActionType.JOIN;
-            case JOIN:
-                return ActionType.OPEN;
-            case OPEN:
-            case NORMAL:
-                return ActionType.SESSION_ON;
-            case SESSION_ON:
-                return ActionType.NORMAL;
-            default:
-                throw new RuntimeException("Invalid entry");
+        for (GenAccountInfo info : this.customerActionStatus.values()) {
+            buffer.append(info.getUserNumber() + ":" + info.getMoney() + "\n");
         }
+
+        return buffer.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "GenStatus{" +
+                "customerActionStatus=" + customerActionStatus +
+                '}';
     }
 }

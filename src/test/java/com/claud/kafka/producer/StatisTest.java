@@ -1,6 +1,6 @@
 package com.claud.kafka.producer;
 
-import com.claud.kafka.cosumer.Statis;
+import com.claud.kafka.consumer.vo.Statis;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,23 +10,23 @@ public class StatisTest {
     public void testStatisMinMax() {
 
         Statis statis = new Statis();
-        assertEquals(Long.MAX_VALUE, statis.getMin());
-        assertEquals(Long.MIN_VALUE, statis.getMax());
+        assertEquals(Integer.MAX_VALUE, statis.getCalMin());
+        assertEquals(Integer.MIN_VALUE, statis.getCalMax());
 
         statis.updateMinMax(20);
-        assertEquals(20, statis.getMin());
-        assertEquals(20, statis.getMax());
+        assertEquals(20, statis.getCalMin());
+        assertEquals(20, statis.getCalMax());
 
         statis.updateMinMax(150);
-        assertEquals(20, statis.getMin());
-        assertEquals(150, statis.getMax());
+        assertEquals(20, statis.getCalMin());
+        assertEquals(150, statis.getCalMax());
 
         statis.updateMinMax(100);
-        assertEquals(20, statis.getMin());
-        assertEquals(150, statis.getMax());
+        assertEquals(20, statis.getCalMin());
+        assertEquals(150, statis.getCalMax());
 
         statis.updateMinMax(200);
-        assertEquals(20, statis.getMin());
-        assertEquals(200, statis.getMax());
+        assertEquals(20, statis.getCalMin());
+        assertEquals(200, statis.getCalMax());
     }
 }

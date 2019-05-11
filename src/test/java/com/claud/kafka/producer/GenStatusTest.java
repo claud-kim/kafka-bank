@@ -1,24 +1,27 @@
 package com.claud.kafka.producer;
 
-import com.claud.kafka.GenStatus;
-import com.claud.kafka.producer.vo.ActionType;
+import com.claud.kafka.producer.vo.log.ActionType;
+import com.claud.kafka.producer.vo.gen.GenAccountInfo;
 import org.junit.Test;
 
-import static com.claud.kafka.producer.vo.ActionType.NORMAL;
+import static com.claud.kafka.producer.vo.log.ActionType.NORMAL;
 import static org.junit.Assert.assertEquals;
 
 public class GenStatusTest {
 
     @Test
-    public void testTranferNextStatus() {
+    public void testTransferNextStatus() {
+        GenAccountInfo info = new GenAccountInfo(1,"test","name",
+                "19811009", 0, null, null);
 
-        assertEquals(ActionType.JOIN, GenStatus.tranferNextStatus(ActionType.SESSION_NULL));
 
-        assertEquals(ActionType.OPEN, GenStatus.tranferNextStatus(ActionType.JOIN));
-        assertEquals(ActionType.SESSION_ON, GenStatus.tranferNextStatus(ActionType.OPEN));
-        assertEquals(NORMAL, GenStatus.tranferNextStatus(ActionType.SESSION_ON));
-        assertEquals(ActionType.SESSION_ON, GenStatus.tranferNextStatus(NORMAL));
-        assertEquals(NORMAL, GenStatus.tranferNextStatus(ActionType.SESSION_ON));
+        assertEquals(ActionType.JOIN, info.transferNextStatus(ActionType.SESSION_NULL));
+
+        assertEquals(ActionType.OPEN, info.transferNextStatus(ActionType.JOIN));
+        assertEquals(ActionType.SESSION_ON, info.transferNextStatus(ActionType.OPEN));
+        assertEquals(NORMAL, info.transferNextStatus(ActionType.SESSION_ON));
+        assertEquals(ActionType.SESSION_ON, info.transferNextStatus(NORMAL));
+        assertEquals(NORMAL, info.transferNextStatus(ActionType.SESSION_ON));
 
     }
 }

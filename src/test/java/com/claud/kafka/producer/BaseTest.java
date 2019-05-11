@@ -1,5 +1,6 @@
 package com.claud.kafka.producer;
 
+import com.claud.kafka.JsonUtil;
 import com.claud.kafka.producer.vo.BaseVo;
 import com.google.gson.Gson;
 import org.junit.Test;
@@ -7,7 +8,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BaseTest {
-    Gson gson = new Gson();
+    Gson gson = JsonUtil.gson();
 
     @Test
     public void testStockPrice() {

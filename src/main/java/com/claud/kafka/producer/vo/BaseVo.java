@@ -1,5 +1,7 @@
 package com.claud.kafka.producer.vo;
 
+import com.claud.kafka.producer.vo.log.LogType;
+
 import java.util.Date;
 
 public class BaseVo {
@@ -29,5 +31,13 @@ public class BaseVo {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseVo{" +
+                "logtype=" + logtype +
+                ", time=" + time +
+                '}';
     }
 }
