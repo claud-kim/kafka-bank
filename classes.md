@@ -1,70 +1,9 @@
 ```code
-base 
-type: 세션시작 로그/가입로그/계좌개설로그/입금로그/출금로그/이체로그
-time: 
-
-//세션시작로그
-sessionLog extends base
-type: 세션시작
-고객번호 : null
-time : now
-
-//가입로그
-JoinLog extends sessionLog
-type: 가입로그
-고객번호 :
-time : now
-생년월일 : 
-고객명 :
-
-//개좌개설로그
-OpeningAccountLog extends sessionLog
-type : 개좌개설로그
-고객번호 : 
-time : now 입금시각
-계좌번호 : 
 
 
-//입금로그
-DepositLog extends OpeningAccountLog
-type: 입금로그
-고객번호 : 
-계좌번호 : 입금 계좌번호
-time : now //입금시각
-금액 : 입금금액
 
-//출금로그
-WithdrawLog extends OpeningAccountLog
-type: 출금로그
-고객번호 : 
-계좌번호 : 출금 계좌번호
-time : now //출금시각
-금액 : 출금금액
+----
 
-
-//이체로그
-TranferLog extends WithdrawLog
-type: 이체로그
-고객번호 : 
-계좌번호 : //송금계좌번호
-time : now //이체시각
-금액 : //이체금액
-수취은행
-수취계좌번호
-수취계좌주
-```
-
-```code
-https://learning.oreilly.com/library/view/building-data-streaming/9781787283985/3a089e0d-c536-4147-bc3c-ec41afffba49.xhtml
-String jString = "{\"a\": 1, \"b\": \"str\"}";
-JSONObject jObj = new JSONObject(jString);
-Object aObj = jObj.get("a");
-if(aObj instanceof Integer){
-    System.out.println(aObj);
-}
-
-gson.fromJson
-gson.toJson
 
 ```
 
@@ -80,16 +19,13 @@ gson.toJson
 
 4. Maven 사용법에 대한 이해 
 
-5. Unit Test 작성에 대한 이해 6. Clean Code에 대한 이해 
+5. Unit Test 작성에 대한 이해 
 
-
-
-
+6. Clean Code에 대한 이해 
 
 
 
 과제 설명 
-
 
 
 1. 고객의 금융거래 로그를 이용해 고객별 프로파일을 생성하고 조회하고자 한다. 
@@ -160,12 +96,7 @@ gson.toJson
 
 
 
-
-
-
-
 요구사항 
-
 
 
 1. Maven 기반으로 프로젝트 구성 
@@ -263,9 +194,6 @@ gson.toJson
 
 
 
-
-
-
 제약사항 
 
 
@@ -277,8 +205,6 @@ gson.toJson
 3. REST API 제공을 위해 SparkJava(http://sparkjava.com) 사용 
 
 4. 그 외 불필요한 서드파티 프레임워크/라이브러리 사용 금지 (예: Spring, Guava, Lombok 등)
-
-
 
 
 

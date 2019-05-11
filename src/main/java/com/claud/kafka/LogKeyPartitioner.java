@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class LogKeyPartitioner implements Partitioner {
     private Gson gson = JsonUtil.gson();
-    private static final Set<LogType> enterLog = new HashSet<LogType>();
+    private static final Set<LogType> enterLog = new HashSet<>();
 
     static {
         enterLog.add(LogType.JOIN_LOG);
@@ -34,16 +34,18 @@ public class LogKeyPartitioner implements Partitioner {
                 cluster.availablePartitionsForTopic(topic);
 
         final int partitionCount = partitionInfoList.size();
-        final int importantPartition = 0;
+        final int enterPartition = 0;
         final int normalPartitionCount = partitionCount - 1;
         LogKey key = gson.fromJson(new String(keyBytes, StandardCharsets.UTF_8), LogKey.class);
         LogType logType = key.getLogType();
 
+        // 0
         if (enterLog.contains(logType) || key.getCustomerNumber() == null) {
-            return importantPartition;
+            return enterPartition;
         }
 
-        return Math.abs(key.hashCode()) % normalPartitionCount;
+        // 1 ~ size-1
+        return Math.abs(key.hashCode()) % normalPartitionCount+1;
     }
 
     @Override

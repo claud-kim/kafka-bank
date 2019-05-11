@@ -94,8 +94,9 @@ public class ConsumerMain {
                 executorService.awaitTermination(5_000, TimeUnit.MILLISECONDS);
                 if (!executorService.isShutdown())
                     executorService.shutdownNow();
-
+                System.out.println("=================ConsumerMain====================");
                 System.out.println(ManagerCustomer.getInstance().printSummary());
+                System.out.println("=====================================");
             } catch (InterruptedException e) {
                 logger.warn("shutting down", e);
             }

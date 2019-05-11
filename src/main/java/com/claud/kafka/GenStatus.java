@@ -35,10 +35,6 @@ public final class GenStatus {
         return this.userTotalSize;
     }
 
-    public Set<Integer> registerUser() {
-        return this.customerActionStatus.keySet();
-    }
-
     public GenAccountInfo getGenAccountInfo(Integer userNumber) {
         return this.customerActionStatus.get(userNumber);
     }
