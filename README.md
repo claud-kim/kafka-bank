@@ -55,14 +55,14 @@ time curl -v http://localhost:4567/users/1
 
 
 ## 테스트 결과
-* !["프로듀서 구동시 로그"](/images/p1.png)
-* !["컨슈머 구동시 로그"](/images/c1.png)
-* !["프로듀서 종료시 로그"](/images/p2.png)
-* !["컨슈머 종료시 로그"](/images/c2.png)
-* !["REST 조회 전체"](/images/r1.png)
-* !["REST 조회 고객번호"](/images/r2.png)
-* !["결과 확인 gen vs consumer diff console"](/images/d1.png)
-* !["결과 확인 gen vs consumer diff shell"](/images/d2.png)
+!["프로듀서 구동시 로그"](/images/p1.png)
+!["컨슈머 구동시 로그"](/images/c1.png)
+!["프로듀서 종료시 로그"](/images/p2.png) 
+!["컨슈머 종료시 로그"](/images/c2.png)
+!["REST 조회 전체"](/images/r1.png)
+!["REST 조회 고객번호"](/images/r2.png)
+!["결과 확인 gen vs consumer diff console"](/images/d1.png)
+!["결과 확인 gen vs consumer diff shell"](/images/d2.png)
 
 ## 설계 
 
