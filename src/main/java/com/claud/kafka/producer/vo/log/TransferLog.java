@@ -5,18 +5,18 @@ import com.claud.kafka.producer.vo.send.LogKey;
 
 public class TransferLog extends BaseVo {
     private int userNumber;
-    private String outAccountNumber;
-    private long outMoney;
+    private String accountNumber;
+    private int outputMoney;
     private String destBank;
     private String destAccountNumber;
     private String destAccountName;
 
-    public TransferLog(int userNumber, String outAccountNumber, String destBank, String destAccountNumber, String destCustomerNumber,
+    public TransferLog(int userNumber, String accountNumber, String destBank, String destAccountNumber, String destCustomerNumber,
                        int transferMoney) {
         super(LogType.TRANSFER_LOG);
         this.userNumber = userNumber;
-        this.outAccountNumber = outAccountNumber;
-        this.outMoney = transferMoney;
+        this.accountNumber = accountNumber;
+        this.outputMoney = transferMoney;
 
         this.destBank = destBank;
         this.destAccountNumber = destAccountNumber;
@@ -32,20 +32,20 @@ public class TransferLog extends BaseVo {
         this.userNumber = userNumber;
     }
 
-    public String getOutAccountNumber() {
-        return outAccountNumber;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setOutAccountNumber(String outAccountNumber) {
-        this.outAccountNumber = outAccountNumber;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public long getOutMoney() {
-        return outMoney;
+    public int getOutputMoney() {
+        return outputMoney;
     }
 
-    public void setOutMoney(long outMoney) {
-        this.outMoney = outMoney;
+    public void setOutputMoney(int outputMoney) {
+        this.outputMoney = outputMoney;
     }
 
     public String getDestBank() {
@@ -81,8 +81,8 @@ public class TransferLog extends BaseVo {
     public String toString() {
         return "TransferLog{" +
                 "userNumber=" + userNumber +
-                ", outAccountNumber='" + outAccountNumber + '\'' +
-                ", outMoney=" + outMoney +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", outputMoney=" + outputMoney +
                 ", destBank='" + destBank + '\'' +
                 ", destAccountNumber='" + destAccountNumber + '\'' +
                 ", destAccountName='" + destAccountName + '\'' +

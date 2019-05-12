@@ -1,7 +1,7 @@
 package com.claud.kafka.consumer;
 
 import com.claud.kafka.AppConstants;
-import com.claud.kafka.consumer.vo.CustomerAccountInfo;
+import com.claud.kafka.consumer.vo.UserProfile;
 import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.send.LogKey;
 import com.claud.kafka.producer.vo.send.UserBankEvent;
@@ -128,7 +128,7 @@ public class ConsumerRunnable implements Runnable {
     private void processRecord(ConsumerRecord<LogKey, String> record) {
         //SAVE TO DB
 
-        //CustomerAccountInfo
+        //UserProfile
 
         LogKey logKey = record.key();
         logger.info("{} {} {} {} {} ",
@@ -144,7 +144,7 @@ public class ConsumerRunnable implements Runnable {
             }
         }
 
-        CustomerAccountInfo customer = managerCustomer.getCustomerAccountInfo(userNumber);
+        UserProfile customer = managerCustomer.getCustomerAccountInfo(userNumber);
         // add value json
         customer.addTrade(record.value());
 
@@ -160,20 +160,20 @@ public class ConsumerRunnable implements Runnable {
             logger.info("===== {} {}", customer, userBankEvent);
         } else if (LogType.WITHDRAW_LOG.equals(logtype)) {
             // money update
-            money = userBankEvent.getWithdrawLog().getOutMoney();
+            money = userBankEvent.getWithdrawLog().getOutputMoney();
             customer.update(logKey.getLogType(), (int) money);
             logger.info("===== {} {}", customer, userBankEvent);
         } else if (LogType.TRANSFER_LOG.equals(logtype)) {
             // money update
-            money = userBankEvent.getTransferLog().getOutMoney();
+            money = userBankEvent.getTransferLog().getOutputMoney();
             customer.update(logKey.getLogType(), (int) money);
             logger.info("===== {} {}", customer, userBankEvent);
-        } else if (LogType.JOIN_LOG.equals(logtype)) {
+        } else if (LogType.REGISTER_LOG.equals(logtype)) {
             // info update
-            String birthDay = userBankEvent.getJoinLog().getBirthDay();
-            String name = userBankEvent.getJoinLog().getName();
-            Date time = userBankEvent.getJoinLog().getTime();
-            int customerNumber = userBankEvent.getJoinLog().getUserNumber();
+            String birthDay = userBankEvent.getRegisterLog().getBirthDay();
+            String name = userBankEvent.getRegisterLog().getUserName();
+            Date time = userBankEvent.getRegisterLog().getTime();
+            int customerNumber = userBankEvent.getRegisterLog().getUserNumber();
             customer.getCustomer().setCustomerName(name);
             customer.getCustomer().setBirthDay(birthDay);
             customer.getCustomer().setCustomerNumber(customerNumber);
@@ -181,7 +181,7 @@ public class ConsumerRunnable implements Runnable {
             customer.getCustomer().setRegisterTime(time);
             logger.info("===== {} {}", customer, userBankEvent);
 
-        } else if (LogType.OPENING_ACCOUNT_LOG.equals(logtype)) {
+        } else if (LogType.ACCOUNT_OPEN_LOG.equals(logtype)) {
             String accuntNumber = userBankEvent.getOpeningAccountLog().getAccountNumber();
             customer.getAccount().setAccountNumber(accuntNumber);
             logger.info("===== {} {}", customer, userBankEvent);

@@ -1,15 +1,15 @@
 package com.claud.kafka.producer;
 
-import com.claud.kafka.consumer.vo.Statis;
+import com.claud.kafka.consumer.vo.Statistics;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class StatisUnitTest {
+public class StatisticsUnitTest {
     @Test
     public void testStatisMinMax() {
 
-        Statis statis = new Statis();
+        Statistics statis = new Statistics();
         assertEquals(Integer.MAX_VALUE, statis.getCalMin());
         assertEquals(Integer.MIN_VALUE, statis.getCalMax());
 

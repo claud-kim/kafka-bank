@@ -6,7 +6,7 @@ import com.claud.kafka.producer.vo.send.LogKey;
 public class DepositLog extends BaseVo {
     private Integer userNumber;
     private String accountNumber;
-    private long insertMoney;
+    private int insertMoney;
 
     public DepositLog(Integer userNumber, String insertAccountNumber, int insertMoney) {
         super(LogType.DEPOSIT_LOG);
@@ -35,7 +35,7 @@ public class DepositLog extends BaseVo {
         this.insertMoney = insertMoney;
     }
 
-    public long getInsertMoney() {
+    public int getInsertMoney() {
         return insertMoney;
     }
 

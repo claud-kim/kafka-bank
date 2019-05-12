@@ -18,8 +18,8 @@ public class LogKeyPartitioner implements Partitioner {
     private static final Set<LogType> enterLog = new HashSet<>();
 
     static {
-        enterLog.add(LogType.JOIN_LOG);
-        enterLog.add(LogType.OPENING_ACCOUNT_LOG);
+        enterLog.add(LogType.REGISTER_LOG);
+        enterLog.add(LogType.ACCOUNT_OPEN_LOG);
 
     }
 

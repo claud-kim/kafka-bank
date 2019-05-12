@@ -3,12 +3,12 @@ package com.claud.kafka.producer.vo.log;
 import com.claud.kafka.producer.vo.BaseVo;
 import com.claud.kafka.producer.vo.send.LogKey;
 
-public class OpeningAccountLog extends BaseVo {
+public class AccountOpenLog extends BaseVo {
     private Integer userNumber;
     private String accountNumber;
 
-    public OpeningAccountLog(Integer userNumber, String accountNumber) {
-        super(LogType.OPENING_ACCOUNT_LOG);
+    public AccountOpenLog(Integer userNumber, String accountNumber) {
+        super(LogType.ACCOUNT_OPEN_LOG);
         this.userNumber = userNumber;
         this.accountNumber = accountNumber;
     }
@@ -28,8 +28,9 @@ public class OpeningAccountLog extends BaseVo {
 
     @Override
     public String toString() {
-        return "OpeningAccountLog{" +
-                "accountNumber='" + accountNumber + '\'' +
+        return "AccountOpenLog{" +
+                "userNumber=" + userNumber +
+                ", accountNumber='" + accountNumber + '\'' +
                 '}';
     }
 }

@@ -3,9 +3,7 @@ package com.claud.kafka.consumer.vo;
 import com.claud.kafka.consumer.MinMax;
 import com.google.gson.annotations.Expose;
 
-public class Statis implements MinMax {
-
-
+public class Statistics implements MinMax {
     private int calMin;
     private int calMax;
 
@@ -14,7 +12,7 @@ public class Statis implements MinMax {
     @Expose
     private Integer max;
 
-    public Statis() {
+    public Statistics() {
         this.calMin = Integer.MAX_VALUE;
         this.calMax = Integer.MIN_VALUE;
 
@@ -68,7 +66,7 @@ public class Statis implements MinMax {
 
     @Override
     public String toString() {
-        return "Statis{" +
+        return "Statistics{" +
                 "min=" + min +
                 ", max=" + max +
                 '}';

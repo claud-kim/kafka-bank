@@ -59,10 +59,10 @@ public class GenAccountInfo extends AccountInfo {
 
         switch (previousAction) {
             case SESSION_NULL:
-                return ActionType.JOIN;
-            case JOIN:
-                return ActionType.OPEN;
-            case OPEN:
+                return ActionType.REGISTER;
+            case REGISTER:
+                return ActionType.ACCOUNT_OPEN;
+            case ACCOUNT_OPEN:
             case NORMAL:
                 return ActionType.SESSION_ON;
             case SESSION_ON:
@@ -88,13 +88,13 @@ public class GenAccountInfo extends AccountInfo {
             currentLogType = LogType.SESSION_LOG;
             event = new UserBankEvent(this.getLogKey(), new SessionLog(this.getUserNumber()));
             return event;
-        } else if (ActionType.JOIN.equals(now)) {
-            currentLogType = LogType.JOIN_LOG;
-            event = new UserBankEvent(this.getLogKey(), new JoinLog(this.getUserNumber(), this.getName(), this.getBirthDay()));
+        } else if (ActionType.REGISTER.equals(now)) {
+            currentLogType = LogType.REGISTER_LOG;
+            event = new UserBankEvent(this.getLogKey(), new RegisterLog(this.getUserNumber(), this.getName(), this.getBirthDay()));
             return event;
-        } else if (ActionType.OPEN.equals(now)) {
-            currentLogType = LogType.OPENING_ACCOUNT_LOG;
-            event = new UserBankEvent(this.getLogKey(), new OpeningAccountLog(this.getUserNumber(), this.getAccountNumber()));
+        } else if (ActionType.ACCOUNT_OPEN.equals(now)) {
+            currentLogType = LogType.ACCOUNT_OPEN_LOG;
+            event = new UserBankEvent(this.getLogKey(), new AccountOpenLog(this.getUserNumber(), this.getAccountNumber()));
             return event;
         }
 

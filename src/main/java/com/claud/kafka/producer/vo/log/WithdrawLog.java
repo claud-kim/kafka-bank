@@ -5,14 +5,14 @@ import com.claud.kafka.producer.vo.send.LogKey;
 
 public class WithdrawLog extends BaseVo {
     private int userNumber;
-    private String outAccountNumber;
-    private long outMoney;
+    private String accountNumber;
+    private long outputMoney;
 
-    public WithdrawLog(int userNumber, String outAccountNumber, int outMoney) {
+    public WithdrawLog(int userNumber, String accountNumber, int outputMoney) {
         super(LogType.DEPOSIT_LOG);
         this.userNumber = userNumber;
-        this.outAccountNumber = outAccountNumber;
-        this.outMoney = outMoney;
+        this.accountNumber = accountNumber;
+        this.outputMoney = outputMoney;
     }
 
     public int getUserNumber() {
@@ -23,20 +23,20 @@ public class WithdrawLog extends BaseVo {
         this.userNumber = userNumber;
     }
 
-    public String getOutAccountNumber() {
-        return outAccountNumber;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setOutAccountNumber(String outAccountNumber) {
-        this.outAccountNumber = outAccountNumber;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
-    public long getOutMoney() {
-        return outMoney;
+    public long getOutputMoney() {
+        return outputMoney;
     }
 
-    public void setOutMoney(long outMoney) {
-        this.outMoney = outMoney;
+    public void setOutputMoney(long outputMoney) {
+        this.outputMoney = outputMoney;
     }
 
     @Override
@@ -48,8 +48,8 @@ public class WithdrawLog extends BaseVo {
     public String toString() {
         return "WithdrawLog{" +
                 "userNumber=" + userNumber +
-                ", outAccountNumber='" + outAccountNumber + '\'' +
-                ", outMoney=" + outMoney +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", outputMoney=" + outputMoney +
                 '}';
     }
 }

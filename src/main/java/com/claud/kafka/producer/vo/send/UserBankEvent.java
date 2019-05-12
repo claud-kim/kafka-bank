@@ -6,8 +6,8 @@ import com.claud.kafka.producer.vo.log.*;
 public class UserBankEvent {
     private LogKey logkey;
     private SessionLog sessionLog;
-    private JoinLog joinLog;
-    private OpeningAccountLog openingAccountLog;
+    private RegisterLog registerLog;
+    private AccountOpenLog openingAccountLog;
     private DepositLog depositLog;
     private WithdrawLog withdrawLog;
     private TransferLog transferLog;
@@ -17,12 +17,12 @@ public class UserBankEvent {
         this.sessionLog = sessionLog;
     }
 
-    public UserBankEvent(LogKey logkey, JoinLog joinLog) {
+    public UserBankEvent(LogKey logkey, RegisterLog registerLog) {
         this.logkey = logkey;
-        this.joinLog = joinLog;
+        this.registerLog = registerLog;
     }
 
-    public UserBankEvent(LogKey logkey, OpeningAccountLog OpeningAccountLog) {
+    public UserBankEvent(LogKey logkey, AccountOpenLog OpeningAccountLog) {
         this.logkey = logkey;
         this.openingAccountLog = OpeningAccountLog;
     }
@@ -58,19 +58,19 @@ public class UserBankEvent {
         this.sessionLog = sessionLog;
     }
 
-    public JoinLog getJoinLog() {
-        return joinLog;
+    public RegisterLog getRegisterLog() {
+        return registerLog;
     }
 
-    public void setJoinLog(JoinLog joinLog) {
-        this.joinLog = joinLog;
+    public void setRegisterLog(RegisterLog registerLog) {
+        this.registerLog = registerLog;
     }
 
-    public OpeningAccountLog getOpeningAccountLog() {
+    public AccountOpenLog getOpeningAccountLog() {
         return openingAccountLog;
     }
 
-    public void setOpeningAccountLog(OpeningAccountLog openingAccountLog) {
+    public void setOpeningAccountLog(AccountOpenLog openingAccountLog) {
         this.openingAccountLog = openingAccountLog;
     }
 
@@ -103,7 +103,7 @@ public class UserBankEvent {
         return "UserBankEvent{" +
                 "logkey=" + logkey +
                 ", sessionLog=" + sessionLog +
-                ", joinLog=" + joinLog +
+                ", registerLog=" + registerLog +
                 ", openingAccountLog=" + openingAccountLog +
                 ", depositLog=" + depositLog +
                 ", withdrawLog=" + withdrawLog +

@@ -17,18 +17,18 @@ public class Account {
     @Expose
     private final List<String> latestTrade = new ArrayList<String>(LASTEST_NUM);
     @Expose
-    private Statis depositLog;
+    private Statistics depositLog;
     @Expose
-    private Statis withdrawLog;
+    private Statistics withdrawLog;
     @Expose
-    private Statis transferLog;
+    private Statistics transferLog;
 
 
     public Account() {
         this.balance = 0;
-        this.depositLog = new Statis();
-        this.withdrawLog = new Statis();
-        this.transferLog = new Statis();
+        this.depositLog = new Statistics();
+        this.withdrawLog = new Statistics();
+        this.transferLog = new Statistics();
     }
 
     public void addTrade(String trade) {
@@ -55,27 +55,27 @@ public class Account {
         }
     }
 
-    public Statis getDepositLog() {
+    public Statistics getDepositLog() {
         return depositLog;
     }
 
-    public void setDepositLog(Statis depositLog) {
+    public void setDepositLog(Statistics depositLog) {
         this.depositLog = depositLog;
     }
 
-    public Statis getWithdrawLog() {
+    public Statistics getWithdrawLog() {
         return withdrawLog;
     }
 
-    public void setWithdrawLog(Statis withdrawLog) {
+    public void setWithdrawLog(Statistics withdrawLog) {
         this.withdrawLog = withdrawLog;
     }
 
-    public Statis getTransferLog() {
+    public Statistics getTransferLog() {
         return transferLog;
     }
 
-    public void setTransferLog(Statis transferLog) {
+    public void setTransferLog(Statistics transferLog) {
         this.transferLog = transferLog;
     }
 

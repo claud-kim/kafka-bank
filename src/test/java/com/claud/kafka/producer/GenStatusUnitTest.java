@@ -15,10 +15,10 @@ public class GenStatusUnitTest {
                 "19811009", 0, null, null);
 
 
-        assertEquals(ActionType.JOIN, info.transferNextStatus(ActionType.SESSION_NULL));
+        assertEquals(ActionType.REGISTER, info.transferNextStatus(ActionType.SESSION_NULL));
 
-        assertEquals(ActionType.OPEN, info.transferNextStatus(ActionType.JOIN));
-        assertEquals(ActionType.SESSION_ON, info.transferNextStatus(ActionType.OPEN));
+        assertEquals(ActionType.ACCOUNT_OPEN, info.transferNextStatus(ActionType.REGISTER));
+        assertEquals(ActionType.SESSION_ON, info.transferNextStatus(ActionType.ACCOUNT_OPEN));
         assertEquals(NORMAL, info.transferNextStatus(ActionType.SESSION_ON));
         assertEquals(ActionType.SESSION_ON, info.transferNextStatus(NORMAL));
         assertEquals(NORMAL, info.transferNextStatus(ActionType.SESSION_ON));

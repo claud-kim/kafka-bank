@@ -5,13 +5,13 @@ import com.claud.kafka.consumer.vo.Customer;
 import com.claud.kafka.producer.vo.log.LogType;
 import com.google.gson.annotations.Expose;
 
-public class CustomerAccountInfo {
+public class UserProfile {
     @Expose
     private Customer customer;
     @Expose
     private Account account;
 
-    public CustomerAccountInfo(Integer customerNumber) {
+    public UserProfile(Integer customerNumber) {
         this.customer = new Customer(customerNumber);
         this.account = new Account();
     }
@@ -43,7 +43,7 @@ public class CustomerAccountInfo {
 
     @Override
     public String toString() {
-        return "CustomerAccountInfo{" +
+        return "UserProfile{" +
                 "customer=" + customer +
                 ", account=" + account +
                 '}';

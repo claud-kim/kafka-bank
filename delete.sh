@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Enter name of topic to empty:"
+echo "Enter userName of topic to empty:"
 read topicName
 
 # env set
@@ -7,7 +7,7 @@ PART=5
 Kafka_Home=/Users/gimbyeongmin/git/kafka-bank/kafka_2.12-2.2.0
 
 # run cmd 
-$Kafka_Home/bin/kafka-configs.sh --zookeeper localhost:2181 --alter --entity-type topics --entity-name $topicName --add-config retention.ms=1000
+$Kafka_Home/bin/kafka-configs.sh --zookeeper localhost:2181 --alter --entity-type topics --entity-userName $topicName --add-config retention.ms=1000
 sleep 5
 
 
@@ -17,7 +17,7 @@ ls /brokers/topics
 quit
 EOF
 
-$Kafka_Home/bin/kafka-configs.sh --zookeeper localhost:2181 --alter --entity-type topics --entity-name $topicName --delete-config retention.ms
+$Kafka_Home/bin/kafka-configs.sh --zookeeper localhost:2181 --alter --entity-type topics --entity-userName $topicName --delete-config retention.ms
 
 
 

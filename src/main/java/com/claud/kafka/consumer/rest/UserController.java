@@ -1,6 +1,6 @@
 package com.claud.kafka.consumer.rest;
 
-import com.claud.kafka.consumer.vo.CustomerAccountInfo;
+import com.claud.kafka.consumer.vo.UserProfile;
 import com.claud.kafka.consumer.vo.ResponseError;
 
 import static com.claud.kafka.JsonUtil.restJson;
@@ -15,7 +15,7 @@ public class UserController {
 
         get("/users/:id", (req, res) -> {
             String id = req.params(":id");
-            CustomerAccountInfo user = userService.getUser(id);
+            UserProfile user = userService.getUser(id);
             if (user != null) {
                 return user;
             }

@@ -1,7 +1,7 @@
 package com.claud.kafka.consumer;
 
 import com.claud.kafka.JsonUtil;
-import com.claud.kafka.consumer.vo.CustomerAccountInfo;
+import com.claud.kafka.consumer.vo.UserProfile;
 import com.google.gson.Gson;
 
 import java.util.Collection;
@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ManagerCustomer {
 
-    private Map<Integer, CustomerAccountInfo> allCustomer = new ConcurrentHashMap<>(50000);
+    private Map<Integer, UserProfile> allCustomer = new ConcurrentHashMap<>(50000);
     private Gson gson = JsonUtil.gson();
 
     private static class SingletonHolder {
@@ -24,18 +24,18 @@ public class ManagerCustomer {
         return ManagerCustomer.SingletonHolder.INSTANCE;
     }
 
-    public Collection<CustomerAccountInfo> listAll() {
+    public Collection<UserProfile> listAll() {
         return this.allCustomer.values();
     }
 
-    public CustomerAccountInfo getRestUser(int userNumber) {
+    public UserProfile getRestUser(int userNumber) {
         return this.allCustomer.get(userNumber);
     }
 
 
-    public CustomerAccountInfo getCustomerAccountInfo(Integer userNumber) {
+    public UserProfile getCustomerAccountInfo(Integer userNumber) {
         if (allCustomer.get(userNumber) == null) {
-            allCustomer.put(userNumber, new CustomerAccountInfo(userNumber));
+            allCustomer.put(userNumber, new UserProfile(userNumber));
         }
 
         return this.allCustomer.get(userNumber);
@@ -47,7 +47,7 @@ public class ManagerCustomer {
 
     public String printSummary() {
         StringBuffer buffer = new StringBuffer();
-        for (CustomerAccountInfo info : allCustomer.values()) {
+        for (UserProfile info : allCustomer.values()) {
             buffer.append(info.getCustomer().getCustomerNumber() + ":" + info.getAccount().getBalance() + "\n");
         }
 

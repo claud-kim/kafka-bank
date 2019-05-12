@@ -3,15 +3,15 @@ package com.claud.kafka.producer.vo.log;
 import com.claud.kafka.producer.vo.BaseVo;
 import com.claud.kafka.producer.vo.send.LogKey;
 
-public class JoinLog extends BaseVo {
+public class RegisterLog extends BaseVo {
     private int userNumber;
     private String birthDay;
-    private String name;
+    private String userName;
 
-    public JoinLog(Integer userNumber, String name, String birthDay) {
-        super(LogType.JOIN_LOG);
+    public RegisterLog(Integer userNumber, String userName, String birthDay) {
+        super(LogType.REGISTER_LOG);
         this.userNumber = userNumber;
-        this.name = name;
+        this.userName = userName;
         this.birthDay = birthDay;
     }
 
@@ -23,8 +23,8 @@ public class JoinLog extends BaseVo {
         this.birthDay = birthDay;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
     public int getUserNumber() {
@@ -35,8 +35,8 @@ public class JoinLog extends BaseVo {
         this.userNumber = userNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override
@@ -46,10 +46,10 @@ public class JoinLog extends BaseVo {
 
     @Override
     public String toString() {
-        return "JoinLog{" +
+        return "RegisterLog{" +
                 "userNumber=" + userNumber +
                 ", birthDay='" + birthDay + '\'' +
-                ", name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }
