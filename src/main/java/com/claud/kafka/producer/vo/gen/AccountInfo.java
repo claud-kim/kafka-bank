@@ -5,9 +5,9 @@ public class AccountInfo {
     private String accountNumber;
     private String name;
     private String birthDay;
-    private long money;
+    private int money;
 
-    public AccountInfo(int customerNumber, String accountNumber, String name, String birthDay, long money) {
+    public AccountInfo(int customerNumber, String accountNumber, String name, String birthDay, int money) {
         this.userNumber = customerNumber;
         this.accountNumber = accountNumber;
         this.name = name;
@@ -47,11 +47,11 @@ public class AccountInfo {
         this.birthDay = birthDay;
     }
 
-    public long getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    public void setMoney(long money) {
+    public void setMoney(int money) {
         this.money = money;
     }
 

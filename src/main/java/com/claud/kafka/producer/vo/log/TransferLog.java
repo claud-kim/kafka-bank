@@ -1,6 +1,7 @@
 package com.claud.kafka.producer.vo.log;
 
 import com.claud.kafka.producer.vo.BaseVo;
+import com.claud.kafka.producer.vo.send.LogKey;
 
 public class TransferLog extends BaseVo {
     private int userNumber;
@@ -69,6 +70,11 @@ public class TransferLog extends BaseVo {
 
     public void setDestAccountName(String destAccountName) {
         this.destAccountName = destAccountName;
+    }
+
+    @Override
+    public LogKey getLogKey() {
+        return new LogKey(this.getLogtype(), this.userNumber);
     }
 
     @Override

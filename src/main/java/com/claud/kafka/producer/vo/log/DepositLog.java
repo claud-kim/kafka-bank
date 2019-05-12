@@ -1,6 +1,7 @@
 package com.claud.kafka.producer.vo.log;
 
 import com.claud.kafka.producer.vo.BaseVo;
+import com.claud.kafka.producer.vo.send.LogKey;
 
 public class DepositLog extends BaseVo {
     private Integer userNumber;
@@ -36,6 +37,11 @@ public class DepositLog extends BaseVo {
 
     public long getInsertMoney() {
         return insertMoney;
+    }
+
+    @Override
+    public LogKey getLogKey() {
+        return new LogKey(this.getLogtype(), this.userNumber);
     }
 
     @Override

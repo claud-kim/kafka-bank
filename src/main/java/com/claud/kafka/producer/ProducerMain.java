@@ -17,6 +17,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static com.claud.kafka.AppConstants.IN_GEN;
+
 public class ProducerMain {
     private static final Logger logger =
             LoggerFactory.getLogger(ProducerMain.class);
@@ -78,8 +80,10 @@ public class ProducerMain {
 
 
                 System.out.println("=================ProducerMain====================");
-                System.out.println(
-                        GenStatus.getInstance().printSummary());
+                String genIn = GenStatus.getInstance().printSummary();
+                FileUtil.writeFile(IN_GEN, genIn);
+                System.out.println(genIn);
+
                 System.out.println("=====================================");
 
             } catch (InterruptedException e) {
@@ -92,8 +96,6 @@ public class ProducerMain {
 
     private static List<ProducerRunnable> getSenderList(
             final Producer<LogKey, String> producer, final int size) {
-
-        //TODO: user range ,
 
         List<ProducerRunnable> lists = new ArrayList<>();
 

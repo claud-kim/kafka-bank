@@ -1,6 +1,7 @@
 package com.claud.kafka.producer.vo.log;
 
 import com.claud.kafka.producer.vo.BaseVo;
+import com.claud.kafka.producer.vo.send.LogKey;
 
 public class JoinLog extends BaseVo {
     private int userNumber;
@@ -36,6 +37,11 @@ public class JoinLog extends BaseVo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public LogKey getLogKey() {
+        return new LogKey(this.getLogtype(), this.userNumber);
     }
 
     @Override

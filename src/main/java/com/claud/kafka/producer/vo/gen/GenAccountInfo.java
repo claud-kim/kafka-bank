@@ -29,7 +29,7 @@ public class GenAccountInfo extends AccountInfo {
 
     }
 
-    public GenAccountInfo(int customerNumber, String accountNumber, String name, String birthDay, long money,
+    public GenAccountInfo(int customerNumber, String accountNumber, String name, String birthDay, int money,
                           ActionType currentActionType, LogType currentLogType) {
         super(customerNumber, accountNumber, name, birthDay, money);
         this.currentActionType = currentActionType;
@@ -48,10 +48,6 @@ public class GenAccountInfo extends AccountInfo {
         this.currentActionType = currentActionType;
     }
 
-    /*public int randomIntBetween(final int min, int max) {
-
-        return random.nextInt(max-min) + min;
-    }*/
 
     public LogKey getLogKey() {
         LogKey logkey = new LogKey(this.currentLogType, this.getUserNumber());
@@ -105,7 +101,7 @@ public class GenAccountInfo extends AccountInfo {
         // rand % 3
         if (this.getMoney() == 0) {
             // depositLog
-            int insertMoney = 1000;
+            int insertMoney = AppConstants.insertRandomRange(random);
             this.updatePlusMoney(insertMoney);
             currentLogType = LogType.DEPOSIT_LOG;
             event = new UserBankEvent(this.getLogKey(), new DepositLog(this.getUserNumber(), this.getAccountNumber(), insertMoney));
@@ -115,7 +111,7 @@ public class GenAccountInfo extends AccountInfo {
             int num = AppConstants.randomIntBetween(random, 0, 3);
             if (0 == num) {
                 // depositLog
-                int insertMoney = 1000;
+                int insertMoney = AppConstants.insertRandomRange(random);
                 updatePlusMoney(insertMoney);
                 currentLogType = LogType.DEPOSIT_LOG;
                 event = new UserBankEvent(this.getLogKey(), new DepositLog(this.getUserNumber(), this.getAccountNumber(), insertMoney));
@@ -123,13 +119,13 @@ public class GenAccountInfo extends AccountInfo {
             } else if (1 == num) {
                 // withdrawLog
                 currentLogType = LogType.WITHDRAW_LOG;
-                int outMoney = AppConstants.randomIntBetween(random, 1, (int) this.getMoney() + 1);
+                int outMoney = AppConstants.randomIntBetween(random, 1, this.getMoney() + 1);
                 updateMinusMoney(outMoney);
                 event = new UserBankEvent(this.getLogKey(), new WithdrawLog(this.getUserNumber(), this.getAccountNumber(), outMoney));
                 return event;
             } else {
                 // transfer
-                int outMoney = AppConstants.randomIntBetween(random, 1, (int) this.getMoney() + 1);
+                int outMoney = AppConstants.randomIntBetween(random, 1, this.getMoney() + 1);
                 updateMinusMoney(outMoney);
                 int select = AppConstants.randomIntBetween(random, 0, destInfos.size());
                 DestInfo selectDest = destInfos.get(select);

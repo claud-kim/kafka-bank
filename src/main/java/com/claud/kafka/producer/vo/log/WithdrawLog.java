@@ -1,6 +1,7 @@
 package com.claud.kafka.producer.vo.log;
 
 import com.claud.kafka.producer.vo.BaseVo;
+import com.claud.kafka.producer.vo.send.LogKey;
 
 public class WithdrawLog extends BaseVo {
     private int userNumber;
@@ -36,6 +37,11 @@ public class WithdrawLog extends BaseVo {
 
     public void setOutMoney(long outMoney) {
         this.outMoney = outMoney;
+    }
+
+    @Override
+    public LogKey getLogKey() {
+        return new LogKey(this.getLogtype(), this.userNumber);
     }
 
     @Override

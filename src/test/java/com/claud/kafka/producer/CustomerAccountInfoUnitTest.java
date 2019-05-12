@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CustomerAccountInfoTest {
+public class CustomerAccountInfoUnitTest {
     private CustomerAccountInfo customerAccountInfo = new CustomerAccountInfo(null);
     private Gson gson = JsonUtil.gson();
 

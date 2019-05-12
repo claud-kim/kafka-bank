@@ -1,10 +1,11 @@
 package com.claud.kafka.producer.vo;
 
 import com.claud.kafka.producer.vo.log.LogType;
+import com.claud.kafka.producer.vo.send.LogKey;
 
 import java.util.Date;
 
-public class BaseVo {
+public abstract class BaseVo {
     private LogType logtype;
     private Date time;
 
@@ -16,6 +17,8 @@ public class BaseVo {
         this.logtype = logtype;
         this.time = new Date();
     }
+
+    public abstract LogKey getLogKey();
 
     public LogType getLogtype() {
         return logtype;

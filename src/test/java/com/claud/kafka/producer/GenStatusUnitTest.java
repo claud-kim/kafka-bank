@@ -7,7 +7,7 @@ import org.junit.Test;
 import static com.claud.kafka.producer.vo.log.ActionType.NORMAL;
 import static org.junit.Assert.assertEquals;
 
-public class GenStatusTest {
+public class GenStatusUnitTest {
 
     @Test
     public void testTransferNextStatus() {

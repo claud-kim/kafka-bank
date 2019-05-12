@@ -1,6 +1,8 @@
 package com.claud.kafka.consumer;
 
 import com.claud.kafka.AppConstants;
+import com.claud.kafka.FileUtil;
+import com.claud.kafka.GenStatus;
 import com.claud.kafka.LogKeyDeserialize;
 import com.claud.kafka.consumer.rest.UserController;
 import com.claud.kafka.consumer.rest.UserService;
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
 
+import static com.claud.kafka.AppConstants.OUT_GEN;
 import static spark.Spark.get;
 
 import static java.util.concurrent.Executors.newFixedThreadPool;
@@ -95,7 +98,9 @@ public class ConsumerMain {
                 if (!executorService.isShutdown())
                     executorService.shutdownNow();
                 System.out.println("=================ConsumerMain====================");
-                System.out.println(ManagerCustomer.getInstance().printSummary());
+                String genOut = ManagerCustomer.getInstance().printSummary();
+                FileUtil.writeFile(OUT_GEN, genOut);
+                System.out.println(genOut);
                 System.out.println("=====================================");
             } catch (InterruptedException e) {
                 logger.warn("shutting down", e);

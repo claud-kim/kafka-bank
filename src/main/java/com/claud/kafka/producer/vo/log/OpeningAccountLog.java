@@ -1,6 +1,7 @@
 package com.claud.kafka.producer.vo.log;
 
 import com.claud.kafka.producer.vo.BaseVo;
+import com.claud.kafka.producer.vo.send.LogKey;
 
 public class OpeningAccountLog extends BaseVo {
     private Integer userNumber;
@@ -18,6 +19,11 @@ public class OpeningAccountLog extends BaseVo {
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    @Override
+    public LogKey getLogKey() {
+        return new LogKey(this.getLogtype(), this.userNumber);
     }
 
     @Override
