@@ -1,12 +1,17 @@
 package com.claud.kafka.consumer;
 
 import com.claud.kafka.AppConstants;
+import com.claud.kafka.GenStopwatch;
 import com.claud.kafka.consumer.vo.UserProfile;
 import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.send.LogKey;
 import com.claud.kafka.producer.vo.send.UserBankEvent;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
+import org.javasimon.Stopwatch;
+import org.javasimon.utils.SimonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.claud.kafka.producer.vo.log.LogType.SESSION_LOG;
 
-public class ConsumerRunnable implements Runnable {
+public class ConsumerRunnable extends GenStopwatch implements Runnable {
     private static final Logger logger =
             LoggerFactory.getLogger(ConsumerRunnable.class);
 
@@ -28,6 +33,7 @@ public class ConsumerRunnable implements Runnable {
     private final TopicPartition topicPartition;
     private boolean running = true;
     private final ManagerCustomer managerCustomer;
+    private int printEvent = 100;
 
 
     private Map<TopicPartition, BlockingQueue<ConsumerRecord>> commitQueueMap = new ConcurrentHashMap<>();
@@ -59,18 +65,15 @@ public class ConsumerRunnable implements Runnable {
     private void runConsumer() throws Exception {
         consumer.assign(Collections.singleton(topicPartition));
 
-        final Map<LogKey, String> lastRecordPerStock = new ConcurrentHashMap<>();
-
         int readCount = 0;
         while (isRunning()) {
-            pollRecordsAndProcess(lastRecordPerStock, readCount);
+            pollRecordsAndProcess(readCount);
             readCount++;
         }
 
     }
 
     private void pollRecordsAndProcess(
-            final Map<LogKey, String> current,
             final int readCount) throws Exception {
 
         final ConsumerRecords<LogKey, String> consumerRecords = consumer.poll(Duration.ofMillis(100));
@@ -82,31 +85,35 @@ public class ConsumerRunnable implements Runnable {
             return;
         }
 
-        for (ConsumerRecord<LogKey, String> record : consumerRecords) {
+        for (ConsumerRecord<LogKey, String> record: consumerRecords) {
+            Stopwatch stopwatch = SimonManager.getStopwatch(getStopWatchName(SimonUtils.generateName()));
+            Split split = stopwatch.start();
 
             processRecord(record);
+
+            split.stop();
         }
 
         processCommits(consumer);
 
         if (readCount % readCountStatusUpdate == 0) {
-            displayRecordsStats(current, consumerRecords);
+            displayRecordsStats(consumerRecords);
         }
     }
 
 
     private void displayRecordsStats(
-            final Map<LogKey, String> currentMap,
             final ConsumerRecords<LogKey, String> consumerRecords) {
 
-        System.out.printf("New ConsumerRecords par count %d count %d, max offset\n",
+        logger.info("New ConsumerRecords par count {} count {}, max offset ",
                 consumerRecords.partitions().size(),
                 consumerRecords.count());
-        currentMap.forEach((s, value) ->
-                System.out.printf("key %s value %s Thread %d\n",
-                        s.toString(), value,
-                        threadIndex));
-        System.out.println();
+
+        /*currentMap.forEach((s, value) ->
+                    logger.info("key {} value {} Thread {}",
+                            s, value,
+                            threadIndex)
+                );*/
     }
 
     @Override
@@ -126,12 +133,12 @@ public class ConsumerRunnable implements Runnable {
     }
 
     private void processRecord(ConsumerRecord<LogKey, String> record) {
-        //SAVE TO DB
+        // DB sync logic
 
         //UserProfile
 
         LogKey logKey = record.key();
-        logger.info("{} {} {} {} {} ",
+        logger.debug("{} {} {} {} {} ",
                 record.topic(), record.partition(), record.offset(),
                 record.key(), record.value());
 
@@ -139,7 +146,7 @@ public class ConsumerRunnable implements Runnable {
         Integer userNumber = logKey.getCustomerNumber();
         if (SESSION_LOG.equals(logKey.getLogType())) {
             if (userNumber == null) {
-                logger.info(" skip {} {}", logKey, userBankEvent);
+                logger.debug("skip {} {}", logKey, userBankEvent);
                 return;
             }
         }
@@ -152,22 +159,27 @@ public class ConsumerRunnable implements Runnable {
         // Open, Join
 
         LogType logtype = logKey.getLogType();
-        long money = 0L;
+
+        printEvent++;
+        if (printEvent==Integer.MAX_VALUE){
+            printEvent=0;
+        }
+
         if (LogType.DEPOSIT_LOG.equals(logtype)) {
             // money update
-            money = userBankEvent.getDepositLog().getInsertMoney();
-            customer.update(logKey.getLogType(), (int) money);
-            logger.info("===== {} {}", customer, userBankEvent);
+            int money = userBankEvent.getDepositLog().getInsertMoney();
+            customer.update(logKey.getLogType(), money);
+            logger.debug("===== {} {}", customer, userBankEvent);
         } else if (LogType.WITHDRAW_LOG.equals(logtype)) {
             // money update
-            money = userBankEvent.getWithdrawLog().getOutputMoney();
-            customer.update(logKey.getLogType(), (int) money);
-            logger.info("===== {} {}", customer, userBankEvent);
+            int money = userBankEvent.getWithdrawLog().getOutputMoney();
+            customer.update(logKey.getLogType(), money);
+            logger.debug("===== {} {}", customer, userBankEvent);
         } else if (LogType.TRANSFER_LOG.equals(logtype)) {
             // money update
-            money = userBankEvent.getTransferLog().getOutputMoney();
-            customer.update(logKey.getLogType(), (int) money);
-            logger.info("===== {} {}", customer, userBankEvent);
+            int money = userBankEvent.getTransferLog().getOutputMoney();
+            customer.update(logKey.getLogType(), money);
+            logger.debug("===== {} {}", customer, userBankEvent);
         } else if (LogType.REGISTER_LOG.equals(logtype)) {
             // info update
             String birthDay = userBankEvent.getRegisterLog().getBirthDay();
@@ -179,21 +191,33 @@ public class ConsumerRunnable implements Runnable {
             customer.getCustomer().setCustomerNumber(customerNumber);
             // 가입 일시 등록
             customer.getCustomer().setRegisterTime(time);
-            logger.info("===== {} {}", customer, userBankEvent);
+            logger.debug("===== {} {}", customer, userBankEvent);
 
         } else if (LogType.ACCOUNT_OPEN_LOG.equals(logtype)) {
-            String accuntNumber = userBankEvent.getOpeningAccountLog().getAccountNumber();
-            customer.getAccount().setAccountNumber(accuntNumber);
-            logger.info("===== {} {}", customer, userBankEvent);
+            String accountNumber = userBankEvent.getOpeningAccountLog().getAccountNumber();
+            customer.getAccount().setAccountNumber(accountNumber);
+            logger.debug("===== {} {}", customer, userBankEvent);
 
         } else if (SESSION_LOG.equals(logtype)) {
-            // NONE
+            // SESSION_LOG updateSessionCnt
             customer.getCustomer().updateSessionCnt();
-
+            logger.debug("===== {} {}", customer, userBankEvent);
         }
 
-
+        if (printEvent%1000==0) {
+            logger.info("===== {} {}", customer, userBankEvent);
+        }
     }
 
 
+    @Override
+    public String getStopWatchName(String methodName) {
+        return String.format("%s%s",getServicePrefix(),
+                methodName.substring(methodName.lastIndexOf('.')+1));
+    }
+
+    @Override
+    public String getServicePrefix() {
+        return "consumer.";
+    }
 }

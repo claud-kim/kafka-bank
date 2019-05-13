@@ -7,8 +7,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileUtil {
+final public class FileUtil {
 
+    private FileUtil() {
+    }
 
     public static List<String> readFile(final String filePath) {
 

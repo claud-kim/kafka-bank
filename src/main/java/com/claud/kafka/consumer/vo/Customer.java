@@ -72,7 +72,7 @@ public class Customer {
     }
 
 
-    public void updateSessionCnt() {
+    public synchronized void updateSessionCnt() {
         this.totalSessionCnt += 1;
     }
 }

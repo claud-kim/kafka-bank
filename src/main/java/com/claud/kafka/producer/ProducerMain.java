@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -55,7 +56,7 @@ public class ProducerMain {
 
     }
 
-    public static void main(String... args) throws Exception {
+    public static void main(String[] args) {
 
         GenStatus.getInstance().init(AppConstants.GEN_USER_SIZE);
 
@@ -83,6 +84,8 @@ public class ProducerMain {
                 String genIn = GenStatus.getInstance().printSummary();
                 FileUtil.writeFile(IN_GEN, genIn);
                 System.out.println(genIn);
+
+                AppConstants.printPrettyMap();
 
                 System.out.println("=====================================");
 

@@ -25,7 +25,6 @@
             <directory>config</directory>
             <outputDirectory>config</outputDirectory>
             <lineEnding>unix</lineEnding>
-            <fileMode>0644</fileMode>
         </fileSet>
         <fileSet>
             <directory>target</directory>

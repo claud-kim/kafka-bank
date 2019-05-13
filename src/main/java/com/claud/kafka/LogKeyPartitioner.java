@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class LogKeyPartitioner implements Partitioner {
     private Gson gson = JsonUtil.gson();
-    private static final Set<LogType> enterLog = new HashSet<>();
+    private static final Set<LogType> enterLog = new HashSet<>(2);
 
     static {
         enterLog.add(LogType.REGISTER_LOG);
@@ -45,7 +45,7 @@ public class LogKeyPartitioner implements Partitioner {
         }
 
         // 1 ~ size-1
-        return Math.abs(key.hashCode()) % normalPartitionCount+1;
+        return (Math.abs(key.hashCode()) % normalPartitionCount)+1;
     }
 
     @Override

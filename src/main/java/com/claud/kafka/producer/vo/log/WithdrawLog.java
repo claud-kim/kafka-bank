@@ -6,7 +6,7 @@ import com.claud.kafka.producer.vo.send.LogKey;
 public class WithdrawLog extends BaseVo {
     private int userNumber;
     private String accountNumber;
-    private long outputMoney;
+    private int outputMoney;
 
     public WithdrawLog(int userNumber, String accountNumber, int outputMoney) {
         super(LogType.DEPOSIT_LOG);
@@ -31,11 +31,11 @@ public class WithdrawLog extends BaseVo {
         this.accountNumber = accountNumber;
     }
 
-    public long getOutputMoney() {
+    public int getOutputMoney() {
         return outputMoney;
     }
 
-    public void setOutputMoney(long outputMoney) {
+    public void setOutputMoney(int outputMoney) {
         this.outputMoney = outputMoney;
     }
 

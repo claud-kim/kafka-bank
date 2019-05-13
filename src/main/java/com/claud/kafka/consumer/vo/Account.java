@@ -12,10 +12,10 @@ public class Account {
     @Expose
     private int balance;
 
-    private final static int LASTEST_NUM = 3;
+    private final static int LATEST_NUM = 3;
 
     @Expose
-    private final List<String> latestTrade = new ArrayList<String>(LASTEST_NUM);
+    private final List<String> latestTrade = new ArrayList<String>(LATEST_NUM);
     @Expose
     private Statistics depositLog;
     @Expose
@@ -31,9 +31,9 @@ public class Account {
         this.transferLog = new Statistics();
     }
 
-    public void addTrade(String trade) {
+    public synchronized void addTrade(String trade) {
         latestTrade.add(0, trade);
-        if (latestTrade.size() > LASTEST_NUM) {
+        if (latestTrade.size() > LATEST_NUM) {
             latestTrade.remove(latestTrade.size() - 1);
         }
     }
@@ -42,7 +42,7 @@ public class Account {
         return latestTrade;
     }
 
-    public void update(LogType logType, int money) {
+    public synchronized void update(LogType logType, int money) {
         if (LogType.DEPOSIT_LOG.equals(logType)) {
             this.balance += money;
             this.depositLog.updateMinMax(money);

@@ -2,12 +2,17 @@ package com.claud.kafka.producer;
 
 import com.claud.kafka.AppConstants;
 import com.claud.kafka.GenStatus;
+import com.claud.kafka.GenStopwatch;
 import com.claud.kafka.producer.vo.gen.GenAccountInfo;
 import com.claud.kafka.producer.vo.log.ActionType;
 import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.send.LogKey;
 import com.claud.kafka.producer.vo.send.UserBankEvent;
 import org.apache.kafka.clients.producer.*;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
+import org.javasimon.Stopwatch;
+import org.javasimon.utils.SimonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public class ProducerRunnable implements Runnable {
+public class ProducerRunnable extends GenStopwatch implements Runnable {
 
     private static final Logger logger =
             LoggerFactory.getLogger(ProducerRunnable.class);
@@ -40,7 +45,7 @@ public class ProducerRunnable implements Runnable {
         this.userNumStart = userNumStart;
         this.userNumEnd = userNumEnd;
         this.status = status;
-        long currentTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis()+userNumStart;
         this.random = new Random(currentTime);
         this.currentTime = currentTime / 1000;
         this.producer = producer;
@@ -68,8 +73,14 @@ public class ProducerRunnable implements Runnable {
             Future<RecordMetadata> last = null;
             ProducerRecord<LogKey, String> record = null;
             for (UserBankEvent event : events) {
+
+                Stopwatch stopwatch = SimonManager.getStopwatch(getStopWatchName(SimonUtils.generateName()));
+                Split split = stopwatch.start();
+
                 record = new ProducerRecord<>(topic, event.getLogkey(), event.toJson());
                 last = producer.send(record);
+
+                split.stop();
             }
 
             //producer.flush();
@@ -153,7 +164,7 @@ public class ProducerRunnable implements Runnable {
         long checkNext = System.currentTimeMillis() / 1000;
         if (currentTime != checkNext) {
             buffer.append(", nextTime=" + checkNext);
-            logger.info("{}", buffer.toString());
+            logger.info("{}", buffer);
             currentTime = checkNext;
             return true;
         }
@@ -162,4 +173,14 @@ public class ProducerRunnable implements Runnable {
     }
 
 
+    @Override
+    public String getStopWatchName(String methodName) {
+        return String.format("%s%s",getServicePrefix(),
+                methodName.substring(methodName.lastIndexOf('.')+1));
+    }
+
+    @Override
+    public String getServicePrefix() {
+        return "producer.";
+    }
 }

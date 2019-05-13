@@ -2,6 +2,7 @@ package com.claud.kafka.producer.vo;
 
 import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.send.LogKey;
+import org.javasimon.Split;
 
 import java.util.Date;
 

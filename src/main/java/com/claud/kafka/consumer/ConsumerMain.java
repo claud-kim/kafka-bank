@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -86,7 +87,7 @@ public class ConsumerMain {
             executorService.submit(stockPriceConsumer);
         });
 
-        //Register nice shutdown of thread pool, then close consumer.
+        // Register nice shutdown of thread pool, then close consumer.
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("Stopping app");
             stopAll.set(true);
@@ -95,12 +96,16 @@ public class ConsumerMain {
             executorService.shutdown();
             try {
                 executorService.awaitTermination(5_000, TimeUnit.MILLISECONDS);
-                if (!executorService.isShutdown())
+                if (!executorService.isShutdown()) {
                     executorService.shutdownNow();
+                }
                 System.out.println("=================ConsumerMain====================");
                 String genOut = ManagerCustomer.getInstance().printSummary();
                 FileUtil.writeFile(OUT_GEN, genOut);
                 System.out.println(genOut);
+
+                AppConstants.printPrettyMap();
+
                 System.out.println("=====================================");
             } catch (InterruptedException e) {
                 logger.warn("shutting down", e);
