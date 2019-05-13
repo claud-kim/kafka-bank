@@ -60,13 +60,13 @@ time curl -v http://localhost:4567/users/1
 
 ## 테스트 결과
 ### v2 테스트 결과
-* 프로듀서 구동시 로그
-!["프로듀서 구동시 로그"](/images/v2_p1.png)
-* 컨슈머 구동시 로그
-!["컨슈머 구동시 로그"](/images/v2_c1.png)
 * 프로듀서 종료시 로그
-!["프로듀서 종료시 로그"](/images/v2_p2.png) 
+!["프로듀서 구동시 로그"](/images/v2_p1.png)
 * 컨슈머 종료시 로그
+!["컨슈머 구동시 로그"](/images/v2_c1.png)
+* 프로듀서 구동시 로그
+!["프로듀서 종료시 로그"](/images/v2_p2.png) 
+* 컨슈머 구동시 로그
 !["컨슈머 종료시 로그"](/images/v2_c2.png)
 * REST 조회 전체
 !["REST 조회 전체"](/images/v2_r1.png)
