@@ -107,3 +107,4 @@ DOC TODO
 * jenkins 통한 빌드 자동화
 * dockerfile 작성
 * code 주석 추가
+* security vulnerabilities 위반 수정 
