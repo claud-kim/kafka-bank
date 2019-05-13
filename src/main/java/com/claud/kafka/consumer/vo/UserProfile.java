@@ -1,7 +1,5 @@
 package com.claud.kafka.consumer.vo;
 
-import com.claud.kafka.consumer.vo.Account;
-import com.claud.kafka.consumer.vo.Customer;
 import com.claud.kafka.producer.vo.log.LogType;
 import com.google.gson.annotations.Expose;
 

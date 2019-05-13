@@ -1,7 +1,7 @@
 package com.claud.kafka.consumer.rest;
 
-import com.claud.kafka.consumer.vo.UserProfile;
 import com.claud.kafka.consumer.vo.ResponseError;
+import com.claud.kafka.consumer.vo.UserProfile;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.javasimon.Stopwatch;

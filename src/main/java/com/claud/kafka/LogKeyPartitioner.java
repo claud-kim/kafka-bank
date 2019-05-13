@@ -1,7 +1,7 @@
 package com.claud.kafka;
 
-import com.claud.kafka.producer.vo.send.LogKey;
 import com.claud.kafka.producer.vo.log.LogType;
+import com.claud.kafka.producer.vo.send.LogKey;
 import com.google.gson.Gson;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
@@ -45,7 +45,7 @@ public class LogKeyPartitioner implements Partitioner {
         }
 
         // 1 ~ size-1
-        return (Math.abs(key.hashCode()) % normalPartitionCount)+1;
+        return (Math.abs(key.hashCode()) % normalPartitionCount) + 1;
     }
 
     @Override

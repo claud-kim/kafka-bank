@@ -111,7 +111,7 @@ public class UserBankEvent {
                 '}';
     }
 
-    public String toJson(){
+    public String toJson() {
         return GenAccountInfo.getGson().toJson(this);
     }
 }

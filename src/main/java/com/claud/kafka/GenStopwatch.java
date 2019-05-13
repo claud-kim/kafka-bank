@@ -1,10 +1,11 @@
 package com.claud.kafka;
 
-        import org.javasimon.Split;
+import org.javasimon.Split;
 
 public abstract class GenStopwatch {
 
     public abstract String getStopWatchName(String methodName);
+
     public abstract String getServicePrefix();
 
     public long getRunningForMillis(Split split) {

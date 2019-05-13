@@ -8,7 +8,9 @@ import com.claud.kafka.producer.vo.log.ActionType;
 import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.send.LogKey;
 import com.claud.kafka.producer.vo.send.UserBankEvent;
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
 import org.javasimon.Stopwatch;
@@ -16,7 +18,10 @@ import org.javasimon.utils.SimonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -41,11 +46,11 @@ public class ProducerRunnable extends GenStopwatch implements Runnable {
     public ProducerRunnable(String topic, int userNumStart, int userNumEnd, GenStatus status, Producer<LogKey, String> producer) {
 
         this.topic = topic;
-        this.numLogEventPerSecond = AppConstants.GEN_SIZE_PER_SECOND/AppConstants.PRODUCER_NUM;
+        this.numLogEventPerSecond = AppConstants.GEN_SIZE_PER_SECOND / AppConstants.PRODUCER_NUM;
         this.userNumStart = userNumStart;
         this.userNumEnd = userNumEnd;
         this.status = status;
-        long currentTime = System.currentTimeMillis()+userNumStart;
+        long currentTime = System.currentTimeMillis() + userNumStart;
         this.random = new Random(currentTime);
         this.currentTime = currentTime / 1000;
         this.producer = producer;
@@ -175,8 +180,8 @@ public class ProducerRunnable extends GenStopwatch implements Runnable {
 
     @Override
     public String getStopWatchName(String methodName) {
-        return String.format("%s%s",getServicePrefix(),
-                methodName.substring(methodName.lastIndexOf('.')+1));
+        return String.format("%s%s", getServicePrefix(),
+                methodName.substring(methodName.lastIndexOf('.') + 1));
     }
 
     @Override

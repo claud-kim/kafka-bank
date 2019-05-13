@@ -1,7 +1,7 @@
 package com.claud.kafka.producer;
 
-import com.claud.kafka.producer.vo.log.ActionType;
 import com.claud.kafka.producer.vo.gen.GenAccountInfo;
+import com.claud.kafka.producer.vo.log.ActionType;
 import org.junit.Test;
 
 import static com.claud.kafka.producer.vo.log.ActionType.NORMAL;
@@ -11,7 +11,7 @@ public class GenStatusUnitTest {
 
     @Test
     public void testTransferNextStatus() {
-        GenAccountInfo info = new GenAccountInfo(1,"test","name",
+        GenAccountInfo info = new GenAccountInfo(1, "test", "name",
                 "19811009", 0, null, null);
 
 

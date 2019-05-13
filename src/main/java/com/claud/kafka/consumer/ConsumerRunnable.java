@@ -6,7 +6,9 @@ import com.claud.kafka.consumer.vo.UserProfile;
 import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.send.LogKey;
 import com.claud.kafka.producer.vo.send.UserBankEvent;
-import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.TopicPartition;
 import org.javasimon.SimonManager;
 import org.javasimon.Split;
@@ -16,8 +18,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.claud.kafka.producer.vo.log.LogType.SESSION_LOG;
@@ -85,7 +92,7 @@ public class ConsumerRunnable extends GenStopwatch implements Runnable {
             return;
         }
 
-        for (ConsumerRecord<LogKey, String> record: consumerRecords) {
+        for (ConsumerRecord<LogKey, String> record : consumerRecords) {
             Stopwatch stopwatch = SimonManager.getStopwatch(getStopWatchName(SimonUtils.generateName()));
             Split split = stopwatch.start();
 
@@ -161,8 +168,8 @@ public class ConsumerRunnable extends GenStopwatch implements Runnable {
         LogType logtype = logKey.getLogType();
 
         printEvent++;
-        if (printEvent==Integer.MAX_VALUE){
-            printEvent=0;
+        if (printEvent == Integer.MAX_VALUE) {
+            printEvent = 0;
         }
 
         if (LogType.DEPOSIT_LOG.equals(logtype)) {
@@ -204,7 +211,7 @@ public class ConsumerRunnable extends GenStopwatch implements Runnable {
             logger.debug("===== {} {}", customer, userBankEvent);
         }
 
-        if (printEvent%1000==0) {
+        if (printEvent % 1000 == 0) {
             logger.info("===== {} {}", customer, userBankEvent);
         }
     }
@@ -212,8 +219,8 @@ public class ConsumerRunnable extends GenStopwatch implements Runnable {
 
     @Override
     public String getStopWatchName(String methodName) {
-        return String.format("%s%s",getServicePrefix(),
-                methodName.substring(methodName.lastIndexOf('.')+1));
+        return String.format("%s%s", getServicePrefix(),
+                methodName.substring(methodName.lastIndexOf('.') + 1));
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.claud.kafka.producer.vo.gen;
 
 import com.claud.kafka.AppConstants;
 import com.claud.kafka.JsonUtil;
-import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.log.*;
 import com.claud.kafka.producer.vo.send.LogKey;
 import com.claud.kafka.producer.vo.send.UserBankEvent;
@@ -10,7 +9,9 @@ import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class GenAccountInfo extends AccountInfo {
     private ActionType currentActionType;

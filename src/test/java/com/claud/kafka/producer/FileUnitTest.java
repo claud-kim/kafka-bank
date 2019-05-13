@@ -1,10 +1,6 @@
 package com.claud.kafka.producer;
 
 import com.claud.kafka.FileUtil;
-import com.claud.kafka.JsonUtil;
-import com.claud.kafka.producer.vo.BaseVo;
-import com.claud.kafka.producer.vo.log.SessionLog;
-import com.google.gson.Gson;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,14 +15,14 @@ public class FileUnitTest {
         String path = "test.txt";
         File file = new File(path);
 
-        if ( file.exists() ) {
+        if (file.exists()) {
             file.delete();
         }
 
         StringBuffer buffer = new StringBuffer();
         buffer.append("112345678080\n1skfhgfll");
 
-        FileUtil.writeFile(path,buffer.toString());
+        FileUtil.writeFile(path, buffer.toString());
 
         assertEquals(true, file.exists());
 
@@ -38,7 +34,7 @@ public class FileUnitTest {
         buffer = new StringBuffer();
         buffer.append("112345678080\naaa\n");
 
-        FileUtil.writeFile(path,buffer.toString());
+        FileUtil.writeFile(path, buffer.toString());
 
         assertEquals(true, file.exists());
 

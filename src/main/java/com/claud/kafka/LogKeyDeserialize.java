@@ -1,7 +1,6 @@
 package com.claud.kafka;
 
 import com.claud.kafka.producer.vo.send.LogKey;
-
 import com.google.gson.Gson;
 import org.apache.kafka.common.serialization.Deserializer;
 

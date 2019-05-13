@@ -9,12 +9,12 @@
     </appender>
 
 
-    <logger name="com.claud.kafka" level="INFO" />
+    <logger name="com.claud.kafka" level="INFO"/>
 
     <logger name="org.apache.kafka" level="INFO"/>
     <logger name="org.apache.kafka.common.metrics" level="INFO"/>
 
     <root level="debug">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

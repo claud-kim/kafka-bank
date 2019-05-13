@@ -96,4 +96,14 @@ time curl -v http://localhost:4567/users/1
 
 ## 설계 
 
-TODO
+DOC TODO
+
+## TODO list
+
+* configuration file 방식 추가 
+* kafka cluster 설정 갱신 및 테스트
+* kafka fail-over 테스트
+* 추가 테스트 코드 작성및 Mockito code 작성
+* jenkins 통한 빌드 자동화
+* dockerfile 작성
+* code 주석 추가

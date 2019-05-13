@@ -62,11 +62,11 @@ final public class AppConstants {
         double totalEventTime = 0.0;
         long totalEventCnt = 0L;
         for (Simon simon : simons.values()) {
-            if (!Stopwatch.class.isInstance(simon)){
+            if (!Stopwatch.class.isInstance(simon)) {
                 continue;
             }
 
-            Stopwatch stopwatch = (Stopwatch)simon;
+            Stopwatch stopwatch = (Stopwatch) simon;
             buffer.append(toStringStopWatch(stopwatch)).append(",");
             String name = simon.getName();
 

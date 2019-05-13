@@ -2,12 +2,11 @@ package com.claud.kafka.producer;
 
 import com.claud.kafka.JsonUtil;
 import com.claud.kafka.producer.vo.BaseVo;
-import com.claud.kafka.producer.vo.log.LogType;
 import com.claud.kafka.producer.vo.log.SessionLog;
 import com.google.gson.Gson;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class BaseUnitTest {
     Gson gson = JsonUtil.gson();

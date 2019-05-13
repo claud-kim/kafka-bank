@@ -1,13 +1,13 @@
 package com.claud.kafka.producer;
 
-import org.javasimon.*;
+import org.javasimon.SimonManager;
+import org.javasimon.Split;
 import org.javasimon.callback.calltree.CallTree;
 import org.javasimon.callback.calltree.CallTreeNode;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +21,9 @@ public class CallTreeTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(CallTreeTest.class);
     private static final String NAME_PREFIX = "org.javasimon.test.";
 
-    /** Call tree under test. */
+    /**
+     * Call tree under test.
+     */
     private CallTree callTree = new CallTree(null) {
         @Override
         public void onRootStopwatchStart(CallTreeNode rootNode, Split split) {
@@ -29,23 +31,31 @@ public class CallTreeTest {
         }
     };
 
-    /** Root call tree node. */
+    /**
+     * Root call tree node.
+     */
     private CallTreeNode rootTreeNode;
 
-    /** Start a stopwatch and append it call stack. */
+    /**
+     * Start a stopwatch and append it call stack.
+     */
     private Split startStopwatch(String name) {
         Split split = SimonManager.getStopwatch(NAME_PREFIX + name).start();
         callTree.onStopwatchStart(split);
         return split;
     }
 
-    /** Stop a stopwatch and remove it from call stack. */
+    /**
+     * Stop a stopwatch and remove it from call stack.
+     */
     private void stopStopwatch(Split split) {
         split.stop();
         callTree.onStopwatchStop(split);
     }
 
-    /** Test call tree. */
+    /**
+     * Test call tree.
+     */
     @Test
     public void testStopwatchStartStop() {
         // Initialisation

@@ -31,8 +31,7 @@ public class CheckMain {
             System.out.println("================================");
             System.out.println("GOOD");
             System.out.println("================================");
-        }else
-        {
+        } else {
             System.out.println("================================");
             System.out.println("BAD");
             System.out.println("================================");

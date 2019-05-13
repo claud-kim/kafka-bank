@@ -1,12 +1,8 @@
 package com.claud.kafka;
 
 import com.claud.kafka.producer.vo.gen.GenAccountInfo;
-import com.claud.kafka.producer.vo.send.UserBankEvent;
-import com.google.gson.Gson;
 
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class GenStatus {
@@ -30,7 +26,7 @@ public final class GenStatus {
         this.userTotalSize = userTotalSize;
         this.customerActionStatus = new ConcurrentHashMap<>(userTotalSize);
     }
-    
+
     public int getUserTotalSize() {
         return this.userTotalSize;
     }
