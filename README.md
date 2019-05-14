@@ -95,8 +95,9 @@ time curl -v http://localhost:4567/users/1
 
 
 ## 설계 
+* class diagram (doing)
+!["class diagram"](/images/class.png)
 
-DOC TODO
 
 ## TODO list
 
