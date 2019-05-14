@@ -56,7 +56,8 @@ public class GenAccountInfo extends AccountInfo {
         return logkey;
     }
 
-    public ActionType transferNextStatus(final ActionType previousAction) throws RuntimeException {
+    public ActionType transferNextStatus(final ActionType previousAction)
+            throws RuntimeException {
 
         switch (previousAction) {
             case SESSION_NULL:
