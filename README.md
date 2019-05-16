@@ -2,7 +2,6 @@
 # This is bank log 시뮬레이션 프로그램
 
 
-
 ## maven dependency
 ### v2
 ![maven dependency](/images/v2_mvn_dep.png)
@@ -98,14 +97,14 @@ time curl -v http://localhost:4567/users/1
 * class diagram (doing)
 !["class diagram"](/images/class.png)
 
-
 ## TODO list
 
-* configuration file 방식 추가 
-* kafka cluster 설정 갱신 및 테스트
-* kafka fail-over 테스트
-* 추가 테스트 코드 작성및 Mockito code 작성
-* jenkins 통한 빌드 자동화
-* dockerfile 작성
-* code 주석 추가
-[_] security vulnerabilities 위반 수정
+- configuration file 방식 추가 
+- kafka cluster 설정 갱신 및 테스트
+- kafka fail-over 테스트
+- 추가 테스트 코드 작성및 Mockito code 작성
+- jenkins 통한 빌드 자동화
+- dockerfile 작성
+- code 주석 추가
+- [x] security vulnerabilities 위반 수정
+
