@@ -108,4 +108,4 @@ time curl -v http://localhost:4567/users/1
 * jenkins 통한 빌드 자동화
 * dockerfile 작성
 * code 주석 추가
-* ~~security vulnerabilities 위반 수정~~
+[_] security vulnerabilities 위반 수정
